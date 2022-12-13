@@ -1,0 +1,10 @@
+FROM golang:1.16-alpine
+ENV http_proxy=http://proxy-dmz.intel.com:911
+ENV https_proxy=http://proxy-dmz.intel.com:912
+ENV no_proxy=intel.com,.intel.com,10.0.0.0/8,192.168.0.0/16,localhost,.local,127.0.0.0/8,134.134.0.0/16
+RUN mkdir /app
+ADD . /app
+WORKDIR /app
+RUN go mod download golang.org/x/net
+RUN go build -o server server.go
+CMD ["/app/server"]

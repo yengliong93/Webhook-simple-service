@@ -7,13 +7,13 @@ import (
 	"net/http"
 )
 
-type employee struct {
-	name string
-	age  string
-	gender string
+type memory struct {
+	timestamp string
+	ip  string
+	free string
 }
 
-var employee_list []employee
+var memory_history []memory
 
 func main() {
 	fmt.Print("Start server.")
@@ -26,8 +26,8 @@ func main() {
 
 	// Routes
 	e.GET("/", hello)
-	e.POST("/register", register)
-	e.GET("/show", show)
+	e.POST("/memory/record", record_memory)
+	e.GET("/memory/show", show_memory)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":5000"))
@@ -40,20 +40,20 @@ func hello(c echo.Context) error {
 }
 
 // register an employee
-func register(c echo.Context) error {
-	name := c.FormValue("name")
-	age := c.FormValue("age")
-	gender := c.FormValue("gender")
-	employee_list = append(employee_list, employee{name: name, age: age, gender: gender})
+func record_memory(c echo.Context) error {
+	timestamp := c.FormValue("timestamp")
+	ip := c.FormValue("ip")
+	free := c.FormValue("free")
+	memory_history = append(memory_history, memory{timestamp: timestamp, ip: ip, free: free})
 	return c.String(http.StatusOK, "Register complete.")
 }
 
 // Show all registered employee
-func show(c echo.Context) error {
-	ey := ""
-	for i, _ := range employee_list{
-		ey = ey + employee_list[i].name + " " + employee_list[i].age + " " + employee_list[i].gender + "\n"
+func show_memory(c echo.Context) error {
+	allMem := ""
+	for i, _ := range memory_history{
+		allMem = allMem + memory_history[i].timestamp + " " + memory_history[i].ip + " " + memory_history[i].free + "\n"
 	}
-	return c.String(http.StatusOK, ey)
+	return c.String(http.StatusOK, allMem)
 }
 
