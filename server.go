@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"net/http"
 )
 
 type memory struct {
 	timestamp string
-	ip  string
-	free string
+	ip        string
+	free      string
 }
 
 var memory_history []memory
@@ -51,9 +52,8 @@ func record_memory(c echo.Context) error {
 // Show all registered employee
 func show_memory(c echo.Context) error {
 	allMem := ""
-	for i, _ := range memory_history{
+	for i, _ := range memory_history {
 		allMem = allMem + memory_history[i].timestamp + " " + memory_history[i].ip + " " + memory_history[i].free + "\n"
 	}
 	return c.String(http.StatusOK, allMem)
 }
-
