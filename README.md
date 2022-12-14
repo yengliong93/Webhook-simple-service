@@ -5,8 +5,8 @@ Create two sample services and demonstrate data sharing by registering webhooks 
 
 ## Server and Collector
 In this repo, there are two services written in Golang. 
-- Server: A simple service that run the server. It exposes the webhook to **record** and **show** the free memory recorded by collector. The wss-server always installed on the control node.
-- Collector: A simple service to collect the free memory on the system and send to server every 10 seconds.
+- Server: A simple service that runs the server. It exposes the webhook to **record** and **show** the free memory recorded by collector. The wss-server always installed on the control node.
+- Collector: A simple service to collect the free memory on the system and sends it to the server every 10 seconds.
 
 ## Instructions:
 1. Ensure Helm has been installed. 
